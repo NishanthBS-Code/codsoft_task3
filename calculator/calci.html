@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <style>
+        /* Basic styling */
+        body { display: flex; 
+        justify-content: center; 
+        border-color:black ;
+        align-items: center; 
+        height: 100vh; 
+        margin: 0; 
+        background-color: #8EC5FC;
+background-image: linear-gradient(62deg, #076b13 0%, #8609fb 100%);
+
+ 
+    }
+        .calculator 
+        { width: 200px;
+         
+         }
+        .display { 
+        height: 50px;
+        width: 200px; 
+        background-color: black ;
+        color: #fff; 
+        text-align: right; 
+        padding:10px; 
+        
+        font-size: 1.5em; 
+    }
+    
+        .buttons { 
+        display: grid; 
+        grid-template-columns: repeat(4, 1fr); 
+    }
+        button { padding: 20px; 
+        font-size: 1.2em; 
+    }
+    
+    
+    </style>
+</head>
+<body>
+    <div class="calculator-box">
+    <div class="calculator">
+ 
+        <div id="display" class="display">0</div>
+        <div class="buttons">
+            <button data-action="clear">C</button>
+            <button data-number="7">7</button>
+            <button data-number="8">8</button>
+            <button data-number="9">9</button>
+            <button data-operator='+'>+</button>
+            <button data-number='4'>4</button>
+            <button data-number='5'>5</button>
+            <button data-number='6'>6</button>
+            <button data-operator='-'>-</button>
+            <button data-number='1'>1</button>
+            <button data-number='2'>2</button>
+            <button data-number='3'>3</button>
+            <button data-operator=''></button>
+            <button data-number='0'>0</button>
+            <button data-operator='/'>/</button>
+            <button data-action='calculate'>=</button>
+        </div>
+    </div>
+    <script>
+        let display = document.getElementById("display");
+        let input = "";
+
+        // Function to update the display
+        function updateDisplay() {
+            display.innerText = input || "0";
+        }
+        document.querySelector(".buttons").addEventListener("click", function(event) {
+            const target = event.target;
+
+            if (target.dataset.number) {
+                // Append number to input
+                input += target.dataset.number;
+            } else if (target.dataset.operator) {
+                // Append operator to input
+                input += target.dataset.operator;
+            } else if (target.dataset.action === "clear") {
+                // Clear input
+                input = "";
+            } else if (target.dataset.action === "calculate") {
+                // Calculate the result
+                try {
+                    input = eval(input).toString();
+                } catch {
+                    input = "Error";
+                }
+            }
+
+            // Update display after each action
+            updateDisplay();
+        });
+
+        // Initialize display
+        updateDisplay();
+    </script>
+
+</body>
+</html>
